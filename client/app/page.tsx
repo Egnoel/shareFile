@@ -27,7 +27,7 @@ export default function Home() {
       const { data } = await axios({
         method: 'post',
         data: formData,
-        url: 'http://localhost:8000/api/files/upload',
+        url: 'share-file-api.vercel.app/api/files/upload',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
