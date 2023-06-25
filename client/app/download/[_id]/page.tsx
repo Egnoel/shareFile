@@ -2,13 +2,17 @@ import RenderFile from '@/components/RenderFile';
 import axios from 'axios';
 import fileDownload from 'js-file-download';
 import { IFile } from '@/lib/types';
-import { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
 import Image from 'next/image';
 
-const index: NextPage<{ file: IFile }> = ({
-  file: { name, format, sizeInBytes, id },
-}) => {
+type pageProps = {
+  params: {
+    _id: string;
+  };
+};
+
+const index = async ({ params: { _id } }: pageProps) => {
+  const { name, format, sizeInBytes, id } = await getData(_id);
   const handleDownload = async () => {
     const { data } = await axios.get(
       `http://localhost:8000/api/files/${id}/download`,
@@ -43,18 +47,15 @@ const index: NextPage<{ file: IFile }> = ({
 
 export default index;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { id } = context.query;
-  let file;
+async function getData(id: string) {
+  let file: IFile;
   try {
     const { data } = await axios.get(`http://localhost:8000/api/files/${id}`);
     file = data;
   } catch (error: any) {
     console.log(error.response.data);
-    file = {};
+    file = error.response.data;
   }
 
-  return {
-    props: { file },
-  };
+  return file;
 }
