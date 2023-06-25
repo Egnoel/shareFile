@@ -15,7 +15,7 @@ const index = async ({ params: { _id } }: pageProps) => {
   const { name, format, sizeInBytes, id } = await getData(_id);
   const handleDownload = async () => {
     const { data } = await axios.get(
-      `http://localhost:8000/api/files/${id}/download`,
+      `share-file-api.vercel.app/api/files/${id}/download`,
       { responseType: 'blob' }
     );
     fileDownload(data, name);
