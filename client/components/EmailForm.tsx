@@ -12,7 +12,7 @@ const EmailForm: FunctionComponent<{ id: string }> = ({ id }) => {
     try {
       const { data } = await axios({
         method: 'POST',
-        url: 'api/files/email',
+        url: 'share-file-api.vercel.app/api/files/email',
         data: {
           id,
           emailFrom,
@@ -27,7 +27,7 @@ const EmailForm: FunctionComponent<{ id: string }> = ({ id }) => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full p-2 space-y-3">
-      <h3>You can also send the file throught mail</h3>
+      <h3>You can also send the file through mail</h3>
       <form
         className="flex flex-col items-center justify-center w-full p-2 space-y-3"
         onSubmit={handleEmail}
