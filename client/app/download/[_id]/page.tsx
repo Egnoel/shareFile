@@ -50,7 +50,7 @@ export default index;
 async function getData(id: string) {
   let file: IFile;
   try {
-    const { data } = await axios.get(`http://localhost:8000/api/files/${id}`);
+    const { data } = await axios.get(`share-file-api.vercel.app/api/files/${id}`);
     file = data;
   } catch (error: any) {
     console.log(error.response.data);
